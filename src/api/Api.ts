@@ -1,16 +1,20 @@
 import axios, { AxiosPromise } from 'axios'
-import { DotaSearchQuery } from '../types/SearchQuery';
-import { SearchResponse } from '../types/SearchResponse';
+import { DotaSearchQuery } from '../types/DotaSearchQuery';
+import { DotaItemParams } from '../types/DotaItemParams';
+import { MarketSearchResponse } from '../types/MarketSearchResponse';
+import { DotaItemPriceHistogramQuery } from '../types/DotaItemPriceHistogramQuery';
+import { DotaItemHistogramParams } from '../types/DotaItemHistogramParams';
+import { DotaItemPriceHistogram } from '../types/DotaItemPriceHistogram';
 
 const network = axios.create({
-    baseURL: 'https://steamcommunity.com/market/search/'
+    baseURL: 'https://steamcommunity.com/market'
 })
 
 class Api{
 
     constructor(){}
 
-    _optionsToItemParams(options: DotaSearchQuery): any{
+    _optionsToDotaItemParams(options: DotaSearchQuery): DotaItemParams{
         return {
             query: options.query ?? '',
             search_descriptions: options.withDescription ? 1 : 0,
@@ -26,12 +30,28 @@ class Api{
         }
     }
 
-    search(options: DotaSearchQuery): AxiosPromise<SearchResponse>{
-        const params = this._optionsToItemParams(options)
-        return network.get(`render/`, { params })
+    _optionsToDotaItemHistogramParams(options: DotaItemPriceHistogramQuery): DotaItemHistogramParams{
+        return {
+            country: options.country ?? 'RU',
+            language: options.language ?? 'russian',
+            currency: options.currency ?? 5,
+            item_nameid: options.item_nameid
+        }
     }
 
+    search(options: DotaSearchQuery): AxiosPromise<MarketSearchResponse>{
+        const params = this._optionsToDotaItemParams(options)
+        return network.get(`/search/render/`, { params })
+    }
 
+    getItemPriceHistogram(options: DotaItemPriceHistogramQuery): AxiosPromise<DotaItemPriceHistogram>{
+        const params = this._optionsToDotaItemHistogramParams(options)
+        return network.get(`/itemordershistogram`, { params })
+    }
+
+    getItemPage(itemName: string): AxiosPromise<string> {
+        return network.get(`/listings/570/${itemName}`)
+    }
 }
 
 const client = new Api()

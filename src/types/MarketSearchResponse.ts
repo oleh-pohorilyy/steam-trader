@@ -1,4 +1,4 @@
-export type SearchResponse = {
+export type MarketSearchResponse = {
     success: boolean
     start: number
     pagesize: number

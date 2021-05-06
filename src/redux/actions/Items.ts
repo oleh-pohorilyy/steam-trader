@@ -1,8 +1,9 @@
-import { DotaSearchQuery } from "../../types/SearchQuery";
+import { DotaSearchQuery } from "../../types/DotaSearchQuery";
 import api from '../../api/Api'
 import { Item } from "../../types/Item";
 import { ThunkType } from "../../types/ThunkType";
 import { ActionType } from "../../types/ActionType";
+import { DotaItemPriceHistogramQuery } from "../../types/DotaItemPriceHistogramQuery";
 
 function setItemsAC(payload: Array<Item>): ActionType{
     return {
@@ -11,7 +12,7 @@ function setItemsAC(payload: Array<Item>): ActionType{
     }
 }
 
-export const getItemsFor = (options: DotaSearchQuery): ThunkType => async (dispatch, getState) => {
+export const getItemsFor = (options: DotaSearchQuery): ThunkType => async (dispatch) => {
     const { data } = await api.search(options)
     const parser = new DOMParser()
     const doc = parser.parseFromString(data.results_html, 'text/html')
@@ -30,4 +31,18 @@ export const getItemsFor = (options: DotaSearchQuery): ThunkType => async (dispa
         })
 
     dispatch(setItemsAC(items))
+}
+
+export const getItemId = (itemName: string): ThunkType => async () => {
+    const { data } = await api.getItemPage(itemName)
+    const stringId = data
+        .match(/Market_LoadOrderSpread\(\s?\d+\s?\)/)
+        ?.shift()
+        ?.match(/\d+/)
+        ?.shift()
+    return parseInt(stringId ?? '-1')
+}
+
+export const getItemPriceHistogram = (options: DotaItemPriceHistogramQuery): ThunkType => async () => {
+    return (await api.getItemPriceHistogram(options)).data
 }

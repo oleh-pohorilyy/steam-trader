@@ -1,40 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { AppStateType } from '../types/AppStateType'
 import { Item } from '../types/Item'
 import Header from './header/Header'
-import { getItemsFor } from '../redux/actions/Items'
-import { DotaSearchQuery } from '../types/SearchQuery'
+import { getItemsFor, getItemId, getItemPriceHistogram } from '../redux/actions/Items'
+import { DotaSearchQuery } from '../types/DotaSearchQuery'
+import { DotaItemPriceHistogramQuery } from '../types/DotaItemPriceHistogramQuery'
+import { DotaItemPriceHistogram } from '../types/DotaItemPriceHistogram'
 
 type Props = {
-  items: Array<Item>,
+  items: Array<Item>
   getItemsFor: (options: DotaSearchQuery) => void
+  getItemId: (itemName: string) => Promise<number>
+  getItemPriceHistogram: (options: DotaItemPriceHistogramQuery) => Promise<DotaItemPriceHistogram>
 }
 
-const App: React.FC<Props> = ({ items, getItemsFor }) => {
-  useEffect(() => {
-    const options = {
-      start: 0,
-      count: 10,
-      query: 'bogatyr'
-    }
-    getItemsFor(options)
-  }, [])
+const App: React.FC<Props> = ({ items, getItemsFor, getItemId, getItemPriceHistogram }) => {
 
   return (
     <>
-      <div className="table">
-      {
-        items.map(e => 
-        <a className="item" href={e.url}>
-          <img src={e.img}/>
-          <span>{e.name}</span>
-          <span>{e.cost}</span>
-        </a>
-        )
-      }
-      </div>
       <BrowserRouter>
         <Switch>
 
@@ -50,4 +35,7 @@ const mapStateToProps = (state: AppStateType) => {
   }
 }
 
-export default connect<{}, {}, {}, AppStateType>(mapStateToProps, { getItemsFor })(App);
+export default connect<{}, {}, {}, AppStateType>(
+  mapStateToProps, 
+  { getItemsFor, getItemId, getItemPriceHistogram }
+)(App);
