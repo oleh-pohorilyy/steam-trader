@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import { AppStateType } from '../types/AppStateType'
-import { Item } from '../types/Item'
+import { AppStateType } from '../types/redux/AppStateType'
+import { DotaItem } from '../types/DotaItem'
 import Header from './header/Header'
-import { getItemsFor, getItemId, getItemPriceHistogram } from '../redux/actions/Items'
+import { getItemsFor, getItemId, getItemPriceHistogram } from '../redux/thunks/Items'
 import { DotaSearchQuery } from '../types/DotaSearchQuery'
 import { DotaItemPriceHistogramQuery } from '../types/DotaItemPriceHistogramQuery'
 import { DotaItemPriceHistogram } from '../types/DotaItemPriceHistogram'
 
 type Props = {
-  items: Array<Item>
+  items: Array<DotaItem>
   getItemsFor: (options: DotaSearchQuery) => void
   getItemId: (itemName: string) => Promise<number>
   getItemPriceHistogram: (options: DotaItemPriceHistogramQuery) => Promise<DotaItemPriceHistogram>

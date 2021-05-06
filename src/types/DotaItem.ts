@@ -1,4 +1,4 @@
-export type Item = {
+export type DotaItem = {
     cost: number
     name: string
     img: string

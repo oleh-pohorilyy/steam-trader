@@ -1,8 +1,10 @@
 import { combineReducers } from "redux"
-import { ActionType } from "../../types/ActionType"
-import { Item } from "../../types/Item"
+import { ActionType } from "../../types/redux/ActionType"
+import { DotaItem } from "../../types/DotaItem"
 
-function items(state: Array<Item> = [], action: ActionType): Array<Item>{
+type ItemsInitialStateType = Array<DotaItem>
+
+function items(state: ItemsInitialStateType = [], action: ActionType): ItemsInitialStateType{
     switch(action.type){
         case 'SET_ITEMS': return action.payload
         default: return state
