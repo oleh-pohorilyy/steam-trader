@@ -1,25 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
+import { connect, ConnectedProps } from 'react-redux'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { AppStateType } from '../types/redux/AppStateType'
-import { DotaItem } from '../types/DotaItem'
-import Header from './header/Header'
-import { getItemsFor, getItemId, getItemPriceHistogram } from '../redux/thunks/Items'
-import { DotaSearchQuery } from '../types/DotaSearchQuery'
-import { DotaItemPriceHistogramQuery } from '../types/DotaItemPriceHistogramQuery'
-import { DotaItemPriceHistogram } from '../types/DotaItemPriceHistogram'
+import { searchItems, getItemId, getItemPriceHistogram } from '../redux/thunks/Items'
 
-type Props = {
-  items: Array<DotaItem>
-  getItemsFor: (options: DotaSearchQuery) => void
-  getItemId: (itemName: string) => Promise<number>
-  getItemPriceHistogram: (options: DotaItemPriceHistogramQuery) => Promise<DotaItemPriceHistogram>
-}
-
-const App: React.FC<Props> = ({ items, getItemsFor, getItemId, getItemPriceHistogram }) => {
-
+const App: React.FC<AppProps> = ({ items, searchItems, getItemId, getItemPriceHistogram }) => {
   return (
     <>
+      {
+
+      }
       <BrowserRouter>
         <Switch>
 
@@ -29,13 +19,15 @@ const App: React.FC<Props> = ({ items, getItemsFor, getItemId, getItemPriceHisto
   );
 }
 
-const mapStateToProps = (state: AppStateType) => {
-  return {
-    items: state.items.items
-  }
-}
+const mapStateToProps = (state: AppStateType) => ({
+  items: state.items.items
+})
 
-export default connect<{}, {}, {}, AppStateType>(
+const connector = connect(
   mapStateToProps, 
-  { getItemsFor, getItemId, getItemPriceHistogram }
-)(App);
+  { searchItems, getItemId, getItemPriceHistogram }
+)
+
+type AppProps = ConnectedProps<typeof connector>
+
+export default connector(App)

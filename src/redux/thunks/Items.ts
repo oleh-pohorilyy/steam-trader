@@ -5,7 +5,7 @@ import api from '../../api/Api'
 import { DotaItem } from "../../types/DotaItem"
 import { DotaItemPriceHistogramQuery } from "../../types/DotaItemPriceHistogramQuery"
 
-export const getItemsFor = (options: DotaSearchQuery): ThunkType => async (dispatch) => {
+export const searchItems = (options: DotaSearchQuery): ThunkType => async (dispatch) => {
     const { data } = await api.search(options)
     const parser = new DOMParser()
     const doc = parser.parseFromString(data.results_html, 'text/html')
