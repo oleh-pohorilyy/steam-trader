@@ -1,5 +1,5 @@
 #arc-wrapper{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 2;
@@ -10,8 +10,6 @@
 
 #arc-root{
     position: absolute;
-    background-color: rgb(151, 98, 0);
-    color: #fefefe;
     border-radius: 50%;
     top: 50%;
     left: 50%;

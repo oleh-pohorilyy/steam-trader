@@ -19,7 +19,7 @@ const ArcMenu: React.FC<OwnProps> = ({children, radius, childRadius, rotateBy}) 
 
     const _rotateBy = rotateBy ?? 0
     const _radius = radius ?? 300
-    const _childRadius = childRadius ?? 100
+    const _childRadius = childRadius ?? 70
 
     const onMouseMove = useCallback((event: MouseEvent) => {
         console.log('moving')

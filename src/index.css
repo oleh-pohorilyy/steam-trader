@@ -6,18 +6,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.table{
-  display: flex;
-  flex-direction: column;
+  background-color: #232323;
+  color: #fefefe;
 }
 
 .menu-item{
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-color: #0af;
+  background: url('./assets/menu_bg_blue.gif');
+  background-position: center;
+  background-size: 113%;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 20px 2px #0097FA;
   color: #fff;
   display: flex;
   justify-content: center;
@@ -25,3 +26,11 @@ body {
   font-size: 2rem;
 }
 
+#arc-root{
+  background: url('./assets/menu_bg.gif');
+  background-position: center;
+  background-size: 113%;
+  background-repeat: no-repeat;
+  color: #fefefe;
+  box-shadow: 0 0 20px 2px #fc71fc;
+}
