@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom'
 import ArcMenu from './common/arc-menu/ArcMenu'
 import Header from './header/Header';
 import Search from './search/Search';
+import './App.css'
 
 const App: React.FC = () => {
   return (

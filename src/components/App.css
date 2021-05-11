@@ -1,0 +1,19 @@
+input[type=text]{
+    width: 100%;
+    background: none;
+    border: 0;
+    outline: none;
+    padding: 0.75rem 0.5rem;
+    font: inherit;
+    border-bottom: 2px solid #696969;
+    color: #fff;
+    text-indent: 0.5rem;
+    transition: border-bottom-color 150ms ease-in;
+}
+input[type=text]:focus{
+    border-bottom-color: #1e88e5;
+}
+
+a{
+    text-decoration: none;
+}
