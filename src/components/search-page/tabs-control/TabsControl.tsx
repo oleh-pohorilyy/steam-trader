@@ -4,7 +4,7 @@ type OwnProps = {
     setActiveTab: React.Dispatch<React.SetStateAction<number>>
 }
 
-const SearchTabs: React.FC<OwnProps> = ({setActiveTab}) => {
+const TabsControl: React.FC<OwnProps> = ({setActiveTab}) => {
 
     return(
         <>
@@ -17,4 +17,4 @@ const SearchTabs: React.FC<OwnProps> = ({setActiveTab}) => {
     )
 }
 
-export default SearchTabs
+export default TabsControl

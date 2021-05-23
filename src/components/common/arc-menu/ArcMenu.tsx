@@ -21,20 +21,20 @@ const ArcMenu: React.FC<OwnProps> = ({children, radius, childRadius, rotateBy}) 
     const _radius = radius ?? 300
     const _childRadius = childRadius ?? 70
 
-    const onMouseMove = useCallback((event: MouseEvent) => {
-        console.log('moving')
-    }, [])
+    // const onMouseMove = useCallback((event: MouseEvent) => {
+    //     console.log('moving')
+    // }, [])
 
     useEffect(() => {
         window.addEventListener('keydown', (e: KeyboardEvent) => e.code == 'KeyQ' && setIsOpened(true))
         window.addEventListener('keyup', (e: KeyboardEvent) => e.code == 'KeyQ' && setIsOpened(false))
     }, [])
-    useEffect(() => {
-        if(isOpened) window.addEventListener('mousemove', onMouseMove)
-        else window.removeEventListener('mousemove', onMouseMove)
+    // useEffect(() => {
+    //     if(isOpened) window.addEventListener('mousemove', onMouseMove)
+    //     else window.removeEventListener('mousemove', onMouseMove)
 
-        return () => window.removeEventListener('mousemove', onMouseMove)
-    }, [isOpened])
+    //     return () => window.removeEventListener('mousemove', onMouseMove)
+    // }, [isOpened])
 
     const getWrappedChildren = () => {
         const step = 360/React.Children.count(children)

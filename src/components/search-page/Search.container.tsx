@@ -1,17 +1,29 @@
-import React, { useMemo, useState } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import { dotaHeroes, ClassName } from 'src/constants'
 import styles from './Search.module.css'
-import { DotaHero, AppStateType } from 'src/types'
-import HeroesSelectSection from './heroes-tab/hero-select-section/HeroesSelectSection'
-import SearchInput from './search-input/SearchInput'
-import SearchTabs from './search-tabs/SearchTabs'
-import HeroesTab from './heroes-tab/HeroesTab'
+import { DotaHero, AppStateType, DotaItem, DotaSearchQuery } from 'src/types'
+import HeroesSelectSection from './tabs/heroes-tab/hero-select-section/HeroesSelectSection'
+import SearchInputField from './search-input-field/SearchInputField'
+import TabsControl from './tabs-control/TabsControl'
+import HeroesTab from './tabs/heroes-tab/HeroesTab'
 import { connect, ConnectedProps } from 'react-redux'
 import { searchItems } from 'src/redux/thunks'
 import { TabSwitcher, Tab } from 'src/components/common/tabs'
+import { SelectionHeroContext, SelectionHeroContextData } from './SelectionHeroContext'
+
+interface StateProps {
+    items: Array<DotaItem>
+}
+
+interface DispatchProps {
+    searchItems: (options: DotaSearchQuery) => void
+}
+
+type Props = StateProps & DispatchProps
 
 
-const Search: React.FC<Props> = ({searchItems, items}) => {
+
+const SearchContainer: React.FC<Props> = ({searchItems, items}) => {
     
     const [selectedHeroName, setSelectedHero] = useState<string | null>(null)
     const [selectedType, setSelectedType] = useState(null)
@@ -35,27 +47,33 @@ const Search: React.FC<Props> = ({searchItems, items}) => {
     const sortedHeroes = useMemo(sortHeroesByClassName, [])
 
     const sendRequest = () => {
-        searchItems({
-            count: 10,
-            start: 0,
-            heroes: selectedHeroName ? [dotaHeroes.find(h => h.name===selectedHeroName)!.pseudonym] : undefined
-        })
+        // searchItems({
+        //     count: 10,
+        //     start: 0,
+        //     heroes: selectedHeroName ? [dotaHeroes.find(h => h.name===selectedHeroName)!.pseudonym] : undefined
+        // })
+    }
+
+    const selectionContextData: SelectionHeroContextData = {
+        heroes: sortedHeroes,
+        selectedHeroName,
+        selectHero
     }
 
     return (
         <>
-            <SearchInput sendRequest={sendRequest} setQueryText={setQueryText} queryText={queryText} />
+            <SearchInputField sendRequest={sendRequest} setQueryText={setQueryText} queryText={queryText} />
             
             <TabSwitcher>
             { setActiveTab => <>
-                <SearchTabs setActiveTab={setActiveTab}/>
-                <Tab 
-                    id={1} 
-                    render={() => <HeroesTab heroes={sortedHeroes} selectHero={selectHero} selectedHeroName={selectedHeroName}/>}/>
+                <TabsControl setActiveTab={setActiveTab}/>
+                <Tab id={1}>
+                    <SelectionHeroContext.Provider value={selectionContextData}>
+                        <HeroesTab/>
+                    </SelectionHeroContext.Provider>
+                </Tab>
             </>}
             </TabSwitcher>
-
-            {items.length && console.log(items)}
         </>
     )
 }
@@ -66,7 +84,4 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-const connector = connect(mapStateToProps, {searchItems})
-type Props = ConnectedProps<typeof connector>
-
-export default connector(Search)
+export default connect(mapStateToProps, {searchItems})(SearchContainer)
