@@ -3,7 +3,7 @@ import { ClassName } from 'src/constants/ClassName'
 import { DotaHero } from 'src/types/DotaHero'
 import HeroesSelectSection from './hero-select-section/HeroesSelectSection'
 
-const HeroesTab: React.FC = () => {
+export const HeroesTab: React.FC = () => {
     return(
         <>
             <HeroesSelectSection
@@ -15,5 +15,3 @@ const HeroesTab: React.FC = () => {
         </>
     )
 }
-
-export default HeroesTab

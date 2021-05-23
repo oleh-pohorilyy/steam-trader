@@ -1,0 +1,5 @@
+export * from './heroes-tab/HeroesTab'
+export * from './quality-tab/QualityTab'
+export * from './rarity-tab/RarityTab'
+export * from './slot-tab/SlotTab'
+export * from './type-tab/TypeTab'
