@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { DotaItemQuality } from 'src/constants/ItemQuality'
+import { DotaItemQuality } from 'src/constants'
 
 interface Props {
     selectedQualities: Set<DotaItemQuality>;

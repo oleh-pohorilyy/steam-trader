@@ -8,7 +8,7 @@ import { connect, ConnectedProps } from 'react-redux'
 import { searchItems } from 'src/redux/thunks'
 import { TabSwitcher, Tab } from 'src/components/common/tabs'
 import { SelectionHeroContext, SelectionHeroContextData } from './SelectionHeroContext'
-import { DotaItemQuality } from 'src/constants/ItemQuality'
+import { DotaItemQuality } from 'src/constants'
 import {HeroesTab, RarityTab, SlotTab, TypeTab, QualityTab} from './tabs'
 
 
