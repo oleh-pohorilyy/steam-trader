@@ -1,9 +1,11 @@
-import { DotaSearchQuery } from "../../types/DotaSearchQuery"
-import { ThunkType } from "../../types/redux/ThunkType"
-import actions from '../actions/Items'
-import api from '../../api/Api'
-import { DotaItem } from "../../types/DotaItem"
-import { DotaItemPriceHistogramQuery } from "../../types/DotaItemPriceHistogramQuery"
+import { 
+    DotaSearchQuery, 
+    DotaItem, 
+    DotaItemPriceHistogramQuery, 
+    ThunkType 
+} from "src/types"
+import actions from "src/redux/action-creators"
+import api from "src/api/Steam"
 
 export const searchItems = (options: DotaSearchQuery): ThunkType => async (dispatch) => {
     const { data } = await api.search(options)
@@ -16,9 +18,7 @@ export const searchItems = (options: DotaSearchQuery): ThunkType => async (dispa
             const url = e.getAttribute('href') || 'unknown'
             const name = e.querySelector('.market_listing_item_name')?.textContent || 'unknown'
             const stringCost = e.querySelector('.normal_price .normal_price')?.textContent?.match(/\d+[,.]\d+/)?.shift()
-            console.log(e.querySelector('.normal_price .normal_price')?.textContent)
             const cost = parseFloat(stringCost ?? '0')
-            console.log(stringCost, cost)
             
             return { cost, name, img, url }
         })

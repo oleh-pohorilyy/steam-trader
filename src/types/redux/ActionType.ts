@@ -1,5 +1,5 @@
-import actions from '../../redux/actions/All'
+import actionCreators from 'src/redux/action-creators'
 
 type PropertiesTypes<T> = T extends {[key: string]: infer U} ? U : never
-type ActionsTypes<T extends {[key: string]: (...args: any[]) => any}> = ReturnType<PropertiesTypes<T>>
-export type ActionType = ActionsTypes<typeof actions>
+type ActionCreatorsTypes<T extends {[key: string]: (...args: any[]) => any}> = ReturnType<PropertiesTypes<T>>
+export type ActionType = ActionCreatorsTypes<typeof actionCreators>

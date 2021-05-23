@@ -1,4 +1,4 @@
-import { DotaItem } from "../../types/DotaItem";
+import { DotaItem } from "src/types";
 
 export default {
     setItemsAC(payload: Array<DotaItem>) {

@@ -1,11 +1,11 @@
 import React from 'react'
-import { ClassName } from '../../../types/ClassName'
-import { Hero } from '../../../types/Hero'
-import HeroIcon from '../../common/hero-icon/HeroIcon'
+import { ClassName } from 'src/constants/ClassName'
+import { DotaHero } from 'src/types/DotaHero'
+import HeroIcon from 'src/components/common/hero-icon/HeroIcon'
 import styles from './HeroesSelectSection.module.css'
 
 type OwnProps = {
-    heroes: Array<Hero>|undefined
+    heroes: Array<DotaHero>|undefined
     sectionClass: ClassName
     selectedHeroName: string|null
     selectHero: (heroName: string) => void
@@ -15,7 +15,7 @@ const HeroesSelectSection: React.FC<OwnProps> = ({heroes, selectedHeroName, sect
     return(
         <div className="d-flex my-4">
             <div className={styles.classIcon}>
-                <img src={require(`../../../assets/hero_${ClassName[sectionClass]}.png`).default} />
+                <img src={require(`../../../../assets/hero_${ClassName[sectionClass]}.png`).default} />
             </div>
             <div className="row gx-0">
             {

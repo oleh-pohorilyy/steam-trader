@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom'
 import ArcMenu from './common/arc-menu/ArcMenu'
 import Header from './header/Header';
-import Search from './search/Search';
+import Search from './search-page/Search';
 import './App.css'
 
 const App: React.FC = () => {
@@ -14,10 +14,7 @@ const App: React.FC = () => {
           <Route component={Search} path="/search" exact/>
         </Switch>
 
-        <ArcMenu radius={300} rotateBy={-17}>
-          <NavLink to="/">
-            <div className="menu-item">Shop</div>
-          </NavLink>
+        <ArcMenu radius={300} rotateBy={-90}>
           <NavLink to="/">
             <div className="menu-item">Profile</div>
           </NavLink>
@@ -26,9 +23,6 @@ const App: React.FC = () => {
           </NavLink>
           <NavLink to="/">
             <div className="menu-item">Trade</div>
-          </NavLink>
-          <NavLink to="/">
-            <div className="menu-item">Main</div>
           </NavLink>
         </ArcMenu>
       </BrowserRouter>

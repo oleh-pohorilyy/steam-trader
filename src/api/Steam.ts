@@ -1,16 +1,17 @@
 import axios, { AxiosPromise } from 'axios'
-import { DotaSearchQuery } from '../types/DotaSearchQuery';
-import { DotaItemParams } from '../types/DotaItemParams';
-import { MarketSearchResponse } from '../types/MarketSearchResponse';
-import { DotaItemPriceHistogramQuery } from '../types/DotaItemPriceHistogramQuery';
-import { DotaItemHistogramParams } from '../types/DotaItemHistogramParams';
-import { DotaItemPriceHistogram } from '../types/DotaItemPriceHistogram';
+import { 
+    DotaSearchQuery, 
+    DotaItemParams, 
+    MarketSearchResponse, 
+    DotaItemPriceHistogramQuery,
+    DotaItemHistogramParams, 
+    DotaItemPriceHistogram } from 'src/types';
 
 const network = axios.create({
     baseURL: 'https://steamcommunity.com/market'
 })
 
-class Api{
+class SteamApi{
 
     constructor(){}
 
@@ -18,7 +19,7 @@ class Api{
         return {
             query: options.query ?? '',
             search_descriptions: options.withDescription ? 1 : 0,
-            'category_570_Hero[]': options.heroes?.join(',') ?? 'any',
+            'category_570_Hero[]': options.heroes ? ('tag_npc_dota_hero_'+options.heroes.join(',')) : 'any',
             'category_570_Slot[]': options.slot ?? 'any',
             'category_570_Quality[]': options.quality ?? 'any',
             'category_570_Type[]': options.type ?? 'any',
@@ -54,6 +55,6 @@ class Api{
     }
 }
 
-const client = new Api()
+const client = new SteamApi()
 
 export default client;
